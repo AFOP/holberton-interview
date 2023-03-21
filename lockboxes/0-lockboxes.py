@@ -26,8 +26,5 @@ def canUnlockAll(boxes):
             continue
         opened_boxes.add(key)
         keys += boxes[key]
-        print(keys)
-        print(opened_boxes)
-        print(key)
 
     return len(opened_boxes) == len(boxes)
