@@ -22,8 +22,6 @@ def minOperations(n):
         return 0
 
     while n > 1:
-        print(n)
-        print(number_of_operations)
         if n % half == 0:
             n /= half
             number_of_operations += half
