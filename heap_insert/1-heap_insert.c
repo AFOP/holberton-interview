@@ -4,84 +4,70 @@
 #include "binary_trees.h"
 
 /**
- * struct heap_t - Binary tree node
+ * heap_insert - Insert a value into a Max Binary Heap
+ * @root: Double pointer to the root node of the Heap
+ * @value: The value to store in the node to be inserted
  *
- * @n: Integer stored in the node
- * @parent: Pointer to the parent node
- * @left: Pointer to the left child node
- * @right: Pointer to the right child node
+ * Return: Pointer to the inserted node, or NULL on failure
  */
-typedef struct heap_s
-{
-	int n;
-	struct heap_s **parent;
-    struct heap_s *left;
-    struct heap_s *right;
-} heap_t;
-
-/**
- * heapify - Recursive function to restore max-heap property.
- *
- * @heap: Pointer to the heap to heapify
- */
-void heapify(heap_t *heap)
-{
-    heap_t *child;
-    int tmp;
-
-    while (heap->left)
-    {
-        child = heap->left;
-        if (heap->right && heap->right->n > child->n)
-            child = heap->right;
-        if (heap->n >= child->n)
-            return;
-        tmp = heap->n;
-        heap->n = child->n;
-        child->n = tmp;
-        heap = child;
-    }
-}
-
-/**
- * heap_insert - inserts a value into a Max Binary Heap
- * @root: is a double pointer to the root node of the Heap
- * @value: is the value to store in the node to be inserted
- * If the address stored in root is NULL, the created node must become the root node.
- * You have to respect a Max Heap ordering
- * You are allowed to have up to 6 functions in your file
- * Return: pointer to the new node, or NULL on failure
-*/
-
 heap_t *heap_insert(heap_t **root, int value)
 {
-	heap_t *new_node, *parent;
+    heap_t *new_node, *current_node;
+    int temp;
 
-    if (!root)
+    if (root == NULL)
         return (NULL);
 
-    /* Create new node */
     new_node = binary_tree_node(NULL, value);
-    if (!new_node)
+    if (new_node == NULL)
         return (NULL);
 
-    /* If the root is empty, the new node becomes the root */
-    if (!*root)
-        return (*root = new_node);
-
-    /* Find the first available spot from left to right */
-    parent = *root;
-    while (parent->left && parent->right)
+    if (*root == NULL)
     {
-        if (binary_tree_balance(parent->left) <= 0)
-            parent = parent->left;
-        else
-            parent = parent->right;
+        *root = new_node;
+        return (new_node);
     }
 
-    /* Insert the new node */
-    if (!parent->left)
-        return (parent->left = new_node);
-    else
-        return (parent->right = new_node);
+    current_node = *root;
+    while (current_node != NULL)
+    {
+        if (current_node->n < new_node->n)
+        {
+            temp = current_node->n;
+            current_node->n = new_node->n;
+            new_node->n = temp;
+            if (current_node->left != NULL)
+                current_node = current_node->left;
+            else
+            {
+                current_node->left = new_node;
+                new_node->parent = current_node;
+                break;
+            }
+        }
+        else if (current_node->n > new_node->n)
+        {
+            if (current_node->right != NULL)
+                current_node = current_node->right;
+            else
+            {
+                current_node->right = new_node;
+                new_node->parent = current_node;
+                break;
+            }
+        }
+        else
+            break;
+    }
+
+    while (new_node->parent != NULL && new_node->parent->n < new_node->n)
+    {
+        temp = new_node->parent->n;
+        new_node->parent->n = new_node->n;
+        new_node->n = temp;
+        new_node = new_node->parent;
+    }
+
+    return (new_node);
 }
+

@@ -19,6 +19,22 @@ typedef struct binary_tree_s
 	struct binary_tree_s *right;
 } binary_tree_t;
 
+/**
+ * struct heap_t - Binary tree node
+ *
+ * @n: Integer stored in the node
+ * @parent: Pointer to the parent node
+ * @left: Pointer to the left child node
+ * @right: Pointer to the right child node
+ */
+typedef struct heap_s
+{
+	int n;
+	struct heap_s **parent;
+    struct heap_s *left;
+    struct heap_s *right;
+} heap_t;
+
 binary_tree_t *binary_tree_node(binary_tree_t *parent, int value);
 heap_t *heap_insert(heap_t **root, int value);
 void binary_tree_print(const binary_tree_t *);
