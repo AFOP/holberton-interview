@@ -8,19 +8,26 @@ of operations needed to result in exactly n
 H characters in the file.
 
 Prototype: def minOperations(n)
-@n: number de characters
+@n: number repeat the character
 Returns an integer
 If n is impossible to achieve, return 0
 """
 
 
 def minOperations(n):
-    if not isinstance(n, int) or n < 1:
+    half = 2
+    number_of_operations = 0
+
+    if n <= 1 or type(n) is not int:
         return 0
-    dp = [n+1] * (n+1)
-    dp[1] = 0
-    for i in range(2, n+1):
-        for j in range(1, i):
-            if i % j == 0:
-                dp[i] = min(dp[i], dp[j] + i//j)
-    return dp[n]
+
+    while n > 1:
+        print(n)
+        print(number_of_operations)
+        if n % half == 0:
+            n /= half
+            number_of_operations += half
+        else:
+            half += 1
+
+    return number_of_operations
