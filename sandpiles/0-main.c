@@ -1,4 +1,4 @@
-/* Description: No toppling */
+/* Description: Top left topples */
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -59,14 +59,14 @@ static void print_grid(int grid[N][N])
 int main(void)
 {
 	int grid1[N][N] = {
-		{0, 0, 0},
+		{1, 0, 0},
 		{0, 0, 0},
 		{0, 0, 0}
 	};
 	int grid2[N][N] = {
-		{2, 3, 2},
-		{3, 2, 3},
-		{2, 3, 2}
+		{3, 0, 0},
+		{0, 0, 0},
+		{0, 0, 0}
 	};
 
 	print_grid_sum(grid1, grid2);
