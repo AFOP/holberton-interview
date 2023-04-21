@@ -9,17 +9,12 @@
  * @grid2: 3x3 grid
  *
  */
-void sum_grid(int grid1[3][3], int grid2[3][3]) 
+void sum_grid(int grid1[3][3], int grid2[3][3])
 {
-    int i, j;
-
-    for (i = 0; i < 3; i++)
-    {
-        for (j = 0; j < 3; j++)
-        {
-            grid1[i][j] += grid2[i][j];
-        }
-    }
+	int i, j;
+		for (i = 0; i < 3; i++)
+			for (j = 0; j < 3; j++)
+				grid1[i][j] += grid2[i][j];
 }
 
 /**
@@ -29,32 +24,32 @@ void sum_grid(int grid1[3][3], int grid2[3][3])
  */
 void redistribute(int grid1[3][3])
 {
-    int i, j;
-    int temp[3][3];
+	int i, j;
+	int temp[3][3];
 
-    for (i = 0; i < 3; i++)
+	for (i = 0; i < 3; i++)
 		for (j = 0; j < 3; j++)
 			temp[i][j] = 0;
 
-    for (i = 0; i < 3; i++)
-    {
-        for (j = 0; j < 3; j++)
-        {
-            if (grid1[i][j] > 3)
-            {
-                if (i > 0)
-                    temp[i - 1][j] += 1;
-                if (i < 2)
-                    temp[i + 1][j] += 1;
-                if (j > 0)
-                    temp[i][j - 1] += 1;
-                if (j < 2)
-                    temp[i][j + 1] += 1;
-                grid1[i][j] -= 4;
-            }
-        }
-    }
-    sum_grid(grid1, temp);
+	for (i = 0; i < 3; i++)
+	{
+		for (j = 0; j < 3; j++)
+		{
+			if (grid1[i][j] > 3)
+			{
+				if (i > 0)
+					temp[i - 1][j] += 1;
+				if (i < 2)
+					temp[i + 1][j] += 1;
+				if (j > 0)
+					temp[i][j - 1] += 1;
+				if (j < 2)
+					temp[i][j + 1] += 1;
+				grid1[i][j] -= 4;
+			}
+		}
+	}
+	sum_grid(grid1, temp);
 }
 
 /**
@@ -65,19 +60,19 @@ void redistribute(int grid1[3][3])
  */
 int is_stable(int grid1[3][3])
 {
-    int i, j;
+	int i, j;
 
-    for (i = 0; i < 3; i++)
-    {
-        for (j = 0; j < 3; j++)
-        {
-            if (grid1[i][j] > 3)
-            {
-                return 0;
-            }
-        }
-    }
-    return 1;
+	for (i = 0; i < 3; i++)
+	{
+		for (j = 0; j < 3; j++)
+		{
+			if (grid1[i][j] > 3)
+			{
+				return (0);
+			}
+		}
+	}
+	return (1);
 }
 
 /**
@@ -89,7 +84,7 @@ static void print_grid(int grid[3][3])
 {
 	int i, j;
 
-    printf("=\n");
+	printf("=\n");
 	for (i = 0; i < 3; i++)
 	{
 		for (j = 0; j < 3; j++)
@@ -108,13 +103,12 @@ static void print_grid(int grid[3][3])
  * @grid2: 3x3 grid two
  *
  */
-
 void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 {
-    sum_grid(grid1, grid2);
-    while (!is_stable(grid1))
-    {
-        print_grid(grid1);
-        redistribute(grid1);
-    }
+	sum_grid(grid1, grid2);
+	while (!is_stable(grid1))
+	{
+		print_grid(grid1);
+		redistribute(grid1);
+	}
 }
