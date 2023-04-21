@@ -54,7 +54,8 @@ void redistribute(int grid1[3][3])
 /**
  * is_stable - check the grid is stable
  * @grid1: 3x3 grid
- * return: 0 if not is stable or 1 if is stable
+ * 
+ * Return: 0 if not is stable or 1 if is stable
  */
 int is_stable(int grid1[3][3])
 {
