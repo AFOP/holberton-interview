@@ -4,11 +4,34 @@
 #include "sandpiles.h"
 
 /**
- * not_stable - check if grid is not stable
+ * is_stable - check the grid is stable
+ * @grid: 3x3 grid
+ *
+ * return: 0 if not is stable or 1 if is stable
+ */
+int is_stable(int grid1[3][3])
+{
+    int i, j;
+
+    for (i = 0; i < 3; i++)
+    {
+        for (j = 0; j < 3; j++)
+        {
+            if (grid1[i][j] > 3)
+            {
+                return 0;
+            }
+        }
+    }
+    return 1;
+}
+
+/**
+ * redistribute - redistribute the grid
  * @grid: 3x3 grid
  *
  */
-int not_stable(int grid1[3][3])
+void redistribute(int grid1[3][3])
 {
     int i, j;
 
@@ -30,7 +53,6 @@ int not_stable(int grid1[3][3])
             }
         }
     }
-    return 1;
 }
 
 /**
@@ -43,13 +65,23 @@ int not_stable(int grid1[3][3])
 void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 {
     int i, j;
+    int temp[3][3];
 
     for (i = 0; i < 3; i++)
     {
         for (j = 0; j < 3; j++)
         {
-            grid1[i][j] += grid2[i][j];
+            temp[i][j] = grid1[i][j] + grid2[i][j];
         }
-    }    
-    not_stable(grid1);
+    }
+    while (!is_stable(temp)){
+        redistribute(temp);
+        for (i = 0; i < 3; i++)
+        {
+            for (j = 0; j < 3; j++)
+            {
+                grid1[i][j] = temp[i][j];
+            }
+        }
+    }
 }
