@@ -4,11 +4,12 @@
 #include "sandpiles.h"
 
 /**
- * redistribute - redistribute the grid
- * @grid: 3x3 grid
+ * sum_grid - sum the two grids
+ * @grid1: 3x3 grid
+ * @grid2: 3x3 grid
  *
  */
-void redistribute(int grid1[3][3])
+void sum_grid(int grid1[3][3], int grid2[3][3]) 
 {
     int i, j;
 
@@ -16,9 +17,32 @@ void redistribute(int grid1[3][3])
     {
         for (j = 0; j < 3; j++)
         {
+            grid1[i][j] += grid2[i][j];
+        }
+    }
+}
+
+/**
+ * redistribute - redistribute the grid
+ * @grid: 3x3 grid
+ *
+ */
+void redistribute(int grid1[3][3])
+{
+    int i, j;
+    int temp[3][3];
+
+    for (i = 0; i < 3; i++)
+		for (j = 0; j < 3; j++)
+			temp[i][j] = 0;
+
+    for (i = 0; i < 3; i++)
+    {
+        for (j = 0; j < 3; j++)
+        {
             if (grid1[i][j] > 3)
             {
-                grid1[i][j] -= 4;
+                temp[i][j] -= 4;
                 if (i > 0)
                     grid1[i - 1][j] += 1;
                 if (i < 2)
@@ -30,6 +54,7 @@ void redistribute(int grid1[3][3])
             }
         }
     }
+    sum_grid(grid1, temp);
 }
 
 /**
@@ -86,18 +111,10 @@ static void print_grid(int grid[3][3])
 
 void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 {
-    int i, j;
-
-    for (i = 0; i < 3; i++)
+    sum_grid(grid1, grid2);
+    while (!is_stable(grid1))
     {
-        for (j = 0; j < 3; j++)
-        {
-            grid1[i][j] += grid2[i][j];
-        }
-    }
-    print_grid(grid1);
-    while(!is_stable(grid1)){
-        redistribute(grid1);
         print_grid(grid1);
+        redistribute(grid1);
     }
 }
