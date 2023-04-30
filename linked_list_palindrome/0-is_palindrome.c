@@ -53,8 +53,17 @@ int is_palindrome(listint_t **head)
     listint_t *current;
     int i = 0;
 
+    if(!head)
+        return (1);
+
+    current = *head;
+
+    while (current)
+    {
+        current = current->next;
+    }
+
     rev = reversed(head);
-    current = reversed(&rev);
     i = count(&rev);
 
     if (i % 2 == 0)
