@@ -12,7 +12,8 @@ int count(listint_t **head)
     listint_t *current = *head;
     int n = 1;
 
-    while (current->next != NULL) {
+    while (current->next != NULL)
+    {
         n++;
         current = current->next;
     }
@@ -30,7 +31,8 @@ listint_t *reversed(listint_t **head)
     listint_t *current = *head;
     listint_t *next = NULL;
 
-    while (current != NULL) {
+    while (current != NULL)
+    {
         next = current->next;
         current->next = prev;
         prev = current;
@@ -48,17 +50,19 @@ listint_t *reversed(listint_t **head)
 int is_palindrome(listint_t **head)
 {
     listint_t *rev;
-    int i=0;
+    listint_t *current;
+    int i = 0;
 
     rev = reversed(head);
+    current = reversed(&rev);
     i = count(&rev);
 
-    if (i % 2 == 0) {
-        listint_t *current = *head;
-
-        while (current->next != NULL && rev->next != NULL)
+    if (i % 2 == 0)
+    {
+        while (current != NULL && rev != NULL)
         {
-            if (current->n != rev->n) {
+            if (current->n != rev->n)
+            {
                 return (0);
             }
             current = current->next;
