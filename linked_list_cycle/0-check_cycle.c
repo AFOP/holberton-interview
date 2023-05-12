@@ -12,6 +12,8 @@ int check_cycle(listint_t *list)
     const listint_t *slow;
     const listint_t *fast;
 
+    if(list)
+        return (0);
     slow = list;
     fast = list;
     while (slow != NULL && fast != NULL)
