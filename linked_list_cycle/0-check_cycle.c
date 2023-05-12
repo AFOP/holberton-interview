@@ -9,14 +9,14 @@
  */
 int check_cycle(listint_t *list)
 {
-    const listint_t *slow;
-    const listint_t *fast;
+    const listint_t *slow = NULL;
+    const listint_t *fast = NULL;
 
     if (list == NULL || list->next == NULL)
         return (0);
     slow = list;
     fast = list;
-    while (slow != NULL && fast != NULL)
+    while (slow && fast && fast->next)
     {
         slow = slow->next;
         fast = fast->next->next;
