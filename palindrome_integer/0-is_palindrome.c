@@ -12,10 +12,12 @@
 int is_palindrome(unsigned long n)
 {
     char num_str[20];
+    int i = 0;
+    int j = 0;
+
     sprintf(num_str, "%lu", n);
 
-    int i = 0;
-    int j = strlen(num_str) - 1;
+    j = strlen(num_str) - 1;
 
     while (i < j) {
         if (num_str[i] != num_str[j])
