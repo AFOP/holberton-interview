@@ -19,10 +19,13 @@ def validUTF8(data):
                 continue  # El byte es válido
             elif binary.startswith('110'):  # Comienza con '110', lo que significa que hay 1 byte restante
                 remaining_bytes = 1
+                break
             elif binary.startswith('1110'):  # Comienza con '1110', lo que significa que hay 2 bytes restantes
                 remaining_bytes = 2
+                break
             elif binary.startswith('11110'):  # Comienza con '11110', lo que significa que hay 3 bytes restantes
                 remaining_bytes = 3
+                break
             else:
                 return False  # No es un byte válido UTF-8
         else:
