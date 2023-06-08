@@ -45,13 +45,11 @@ void menger(int level) {
         return;
     }
 
-    int spongeSize = (int)pow(3, level);
-    drawMenger(spongeSize, level);
-
-    for (int i = 0; i < spongeSize; i++) {
-        for (int j = 0; j < spongeSize; j++) {
-            printf("#");
-        }
-        printf("\n");
+    if (level == 0) {
+        printf("#\n");
+    }
+    else {
+        int spongeSize = (int)pow(3, level);
+        drawMenger(spongeSize, level);
     }
 }
