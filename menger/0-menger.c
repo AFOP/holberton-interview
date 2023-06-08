@@ -1,57 +1,39 @@
-#include <stdio.h>
-#include <math.h>
-
 #include "menger.h"
 
 /**
- * drawMenger - Entry point
- *
- * @size: Arguments vector
- * @level: Arguments vector
- *
+ * menger - draws a 2D menger sponge
+ * @level: number of levels to draw
+ * Return: nothing
  */
+void menger(int level)
+{
+	int col, row, size;
 
-void drawMenger(int size, int level) {
-    if (level < 0) {
-        return;
-    }
-
-    for (int i = 0; i < size; i++) {
-        for (int j = 0; j < size; j++) {
-            int x = i, y = j;
-            char c = '#';
-
-            while (x > 0 || y > 0) {
-                if (x % 3 == 1 && y % 3 == 1) {
-                    c = ' ';
-                    break;
-                }
-                x /= 3;
-                y /= 3;
-            }
-
-            printf("%c", c);
-        }
-        printf("\n");
-    }
+	if (level < 0)
+		return;
+	size = pow(3, level);
+	for (col = 0; col < size; col++)
+	{
+		for (row = 0; row < size; row++)
+			printf("%c", hash_space(col, row));
+		putchar(10);
+	}
 }
 
-/**
- * menger - Entry point
- *
- * @level: Arguments vector
- *
- */
-void menger(int level) {
-    if (level < 0) {
-        return;
-    }
 
-    if (level == 0) {
-        printf("#\n");
-    }
-    else {
-        int spongeSize = (int)pow(3, level);
-        drawMenger(spongeSize, level);
-    }
+/**
+ * hash_space - gets a character
+ * @col: column
+ * @row: row
+ * Return: '#' or ' '
+ */
+char hash_space(int col, int row)
+{
+	while (col && row)
+	{
+		if (col % 3 == 1 && row % 3 == 1)
+			return (' ');
+		col /= 3, row /= 3;
+	}
+	return ('#');
 }
