@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <math.h>
 
+#include "menger.h"
+
 /**
  * drawMenger - Entry point
  *
