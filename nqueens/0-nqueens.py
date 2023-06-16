@@ -1,74 +1,65 @@
 #!/usr/bin/python3
 """
-nqueens
+    N-queen problem
+    The next algo solve any N queen in any NxN
+    Being N > 3
 """
 import sys
 
 
-def is_safe(board, row, col, N):
+def n_q(t_arr, arr, col, i, n):
     """
-    Check if the current position is safe for the queen
-    Checking the row
+       n_q - Find all posibles solution for N-queen problem and return it
+             in a list
+       @t_arr: temporaly list to store the all points of a posible solution
+       @arr: store all the solution
+       @col: save a colum use for a queen
+       @i: the row of the chess table
+       @n: Number of queens
     """
-    for i in range(col):
-        if board[row][i] == 1:
-            return False
+    if (i > n):
+        arr.append(t_arr[:])
+        return arr
 
-    # Checking the upper diagonal
-    for i, j in zip(range(row, -1, -1), range(col, -1, -1)):
-        if board[i][j] == 1:
-            return False
+    for j in range(n + 1):
+        if i == 0 or ([i - 1, j - 1] not in t_arr and
+                      [i - 1, j + 1] not in t_arr and
+                      j not in col):
+            if i > 1:
+                dia = 0
+                for k in range(2, i + 1):
+                    if ([i - k, j - k] in t_arr) or ([i - k, j + k] in t_arr):
+                        dia = 1
+                        break
+                if dia:
+                    continue
+            t_arr.append([i, j])
+            col.append(j)
+            n_q(t_arr, arr, col, i + 1, n)
+            col.pop()
+            t_arr.pop()
 
-    # Checking the lower diagonal
-    for i, j in zip(range(row, N, 1), range(col, -1, -1)):
-        if board[i][j] == 1:
-            return False
+    return arr
 
-    return True
-
-
-def solve_nqueens_util(board, col, N, solutions):
-    """Base case: If all queens are placed, add the solution"""
-    if col >= N:
-        solution = []
-        for i in range(N):
-            for j in range(N):
-                if board[i][j] == 1:
-                    solution.append([i, j])
-        solutions.append(solution)
-        return True
-
-    # Recursive case: Try placing the queen in each row of the current column
-    for i in range(N):
-        if is_safe(board, i, col, N):
-            board[i][col] = 1
-            solve_nqueens_util(board, col + 1, N, solutions)
-            board[i][col] = 0
-
-
-def solve_nqueens(N):
-    """solve nqueens"""
-    if N < 4:
-        print(f"N must be at least 4")
-        sys.exit(1)
-
-    board = [[0 for _ in range(N)] for _ in range(N)]
-    solutions = []
-    solve_nqueens_util(board, 0, N, solutions)
-
-    for solution in solutions:
-        print(solution)
-
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print(f"Usage: nqueens N")
-        sys.exit(1)
+        print("Usage: nqueens N")
+        exit(1)
 
     try:
-        N = int(sys.argv[1])
-    except ValueError:
-        print(f"N must be a number")
-        sys.exit(1)
+        n = int(sys.argv[1])
+    except:
+        print("N must be a number")
+        exit(1)
 
-    solve_nqueens(N)
+    if not isinstance(n, int):
+        print("N must be a number")
+        exit(1)
+
+    elif n < 4:
+        print("N must be at least 4")
+        exit(1)
+
+    n_q_arr = n_q([], [], [], 0, n - 1)
+    for i in n_q_arr:
+        print(i)
