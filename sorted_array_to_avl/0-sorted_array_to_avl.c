@@ -37,7 +37,7 @@ avl_t *create_node(int n)
 /**
  * recursive_tree - add node with recursive fuction
  * @array: array.
- * @ben: begin.
+ * @start: start.
  * @end: end.
  * Return: tree
  */
