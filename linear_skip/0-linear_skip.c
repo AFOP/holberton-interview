@@ -1,11 +1,11 @@
 #include "search.h"
 /**
- * search_skip - search for a value.
- * @ben: main node
- * @end: final node
- * @value: value to search
- * Return: NULL if not found value or the node that contain value
- */
+* search_skip - search for a value.
+* @ben: main node
+* @end: final node
+* @value: value to search
+* Return: NULL if not found value or the node that contain value
+*/
 skiplist_t *search_skip(skiplist_t *ben, skiplist_t *end, int value)
 {
 	char *format = "Value found between indexes [%li] and [%li]\n";
@@ -21,12 +21,14 @@ skiplist_t *search_skip(skiplist_t *ben, skiplist_t *end, int value)
 	}
 	return (NULL);
 }
+
 /**
- * linear_skip - search for a number in a linear skip
- * @head: list of type skiplis_t
- * @value: value to search into list
- * Return: NULL or node contain to value
- */
+* linear_skip - search for a number in a linear skip
+* @head: list of type skiplis_t
+* @value: value to search into list
+* Return: NULL or node contain to value
+*/
+
 skiplist_t *linear_skip(skiplist_t *head, int value)
 {
 	skiplist_t *ben, *end;
