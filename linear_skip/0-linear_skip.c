@@ -21,7 +21,6 @@ skiplist_t *search_skip(skiplist_t *ben, skiplist_t *end, int value)
 	}
 	return (NULL);
 }
-
 /**
 * linear_skip - search for a number in a linear skip
 * @head: list of type skiplis_t
