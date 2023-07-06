@@ -22,10 +22,10 @@ skiplist_t *search_skip(skiplist_t *ben, skiplist_t *end, int value)
 	return (NULL);
 }
 /**
-* linear_skip - search for a number in a linear skip
-* @head: list of type skiplis_t
-* @value: value to search into list
-* Return: NULL or node contain to value
+ * linear_skip - search for a number in a linear skip
+ * @head: list of type skiplis_t
+ * @value: value to search into list
+ * Return: NULL or node contain to value
 */
 
 skiplist_t *linear_skip(skiplist_t *head, int value)
