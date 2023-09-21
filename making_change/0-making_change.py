@@ -1,34 +1,34 @@
 #!/usr/bin/python3
 """
-Given a pile of coins of different values, determine the fewest number 
-of coins needed to meet a given amount total.
-
-Prototype: def makeChange(coins, total)
-Return: fewest number of coins needed to meet total
-If total is 0 or less, return 0
-If total cannot be met by any number of coins you have, return -1
-coins is a list of the values of the coins in your possession
-The value of a coin will always be an integer greater than 0
-You can assume you have an infinite number of each denomination
-of coin in the list
-Your solution’s runtime will be evaluated in this task
+Make change module
 """
+
+
 def makeChange(coins, total):
+    """Given a pile of coins of different values,
+    determine the fewest number of coins
+    needed to meet a given amount 'total'
+
+    Args:
+        coins ([list]): a list of the values of the coins in your possession
+        total ([number]): amount
+    Return: fewest number of coins needed to meet total
+    """
     if total <= 0:
         return 0
 
-    # Initialize a list to store the minimum 
-    # number of coins needed for each total value from 1 to 'total'.
-    # Initialize all values to be a large number to begin with.
-    dp = [float('inf')] * (total + 1)
-    
-    # There is 0 number of coins needed to make a total of 0.
-    dp[0] = 0
+    coins.sort(reverse=True)
 
-    # Iterate through each coin value and update the dp array.
-    for coin in coins:
-        for i in range(coin, total + 1):
-            if dp[i - coin] != float('inf'):
-                dp[i] = min(dp[i], dp[i - coin] + 1)
+    i, ncoins = (0, 0)
+    cpy_total = total
+    len_coins = len(coins)
 
-    return dp[total] if dp[total] != float('inf') else -1
+    while(i < len_coins and cpy_total > 0):
+        if (cpy_total - coins[i]) >= 0:
+            cpy_total -= coins[i]
+            ncoins += 1
+        else:
+            i += 1
+
+    check = cpy_total > 0 and ncoins > 0
+    return -1 if check or ncoins == 0 else ncoins
