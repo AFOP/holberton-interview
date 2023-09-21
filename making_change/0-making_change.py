@@ -3,7 +3,6 @@
 Make change module
 """
 
-
 def makeChange(coins, total):
     """Given a pile of coins of different values,
     determine the fewest number of coins
@@ -30,5 +29,5 @@ def makeChange(coins, total):
         else:
             i += 1
 
-    check = cpy_total > 0 and ncoins > 0
-    return -1 if check or ncoins == 0 else ncoins
+    check = cpy_total > 0 or ncoins == 0
+    return -1 if check else ncoins
