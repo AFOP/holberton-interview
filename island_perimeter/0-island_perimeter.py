@@ -12,6 +12,7 @@ There is only one island (or nothing).
 The island doesn’t have “lakes” (water inside that isn’t connected to the water surrounding the island).
 """
 def island_perimeter(grid):
+    """ returns the perimetes of the island """
     perimeter = 0
     
     # Define the possible neighboring directions
