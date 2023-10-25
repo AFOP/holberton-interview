@@ -12,7 +12,12 @@ There is only one island (or nothing).
 The island doesn’t have “lakes” (water inside that isn’t connected to the water surrounding the island).
 """
 def island_perimeter(grid):
-    """ returns the perimetes of the island """
+    """ Calculate perimeter of the island (grid)
+
+        Args:
+            grid ([[int]]): is a list of list of integers
+        Return: perimeter of the island described in grid 
+    """
     perimeter = 0
     
     # Define the possible neighboring directions
