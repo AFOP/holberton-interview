@@ -6,7 +6,6 @@
 #include <stddef.h>
 #include <math.h>
 #include <limits.h>
-#include <avl_tree.h>
 
 /* =========== Structures =========== */
 
