@@ -1,41 +1,24 @@
-#include <stdlib.h>
-#include <stdio.h>
-
 #include "regex.h"
 
-#define TEST_MATCH(s, p)    do {\
-    {\
-        int res = regex_match(s, p);\
-        printf("%s -> %s = %d\n", s, p, res);\
-    }\
-} while(0)
-
 /**
- * main - Entry point
- *
- * Return: EXIT_SUCCESS or EXIT_FAILURE
+ * regex_match - compare two strings if one has slight regex
+ * @str: regular string
+ * @pattern: string that might have regex . and/or regex *
+ * Return: 1 if they "match", 0 if not.
  */
-int main(void)
+int regex_match(char const *str, char const *pattern)
 {
-    TEST_MATCH("H", "H");
-    TEST_MATCH("HH", "H");
-    TEST_MATCH("HH", "H*");
-    TEST_MATCH("HHHHHHHHHHHHHHHHH", "H*");
+	int tmp = 0;
 
-    TEST_MATCH("Holberton", ".*");
-    TEST_MATCH("Alex", ".*");
-    TEST_MATCH("Guillaume", ".*");
-    TEST_MATCH("Julien", ".*");
-
-    TEST_MATCH("Holberton", "Z*H.*");
-    TEST_MATCH("Holberton", "Z*H.*olberton");
-    TEST_MATCH("Holberton", "Z*H.*o.");
-    TEST_MATCH("Holberton", "Z*H.*o");
-
-    TEST_MATCH("Holberton", "holberton");
-    TEST_MATCH("Holberton", ".olberton");
-
-    TEST_MATCH("!H@o#l$b%e^r&t(o)n_", "!.@.#.$.%.^.&.(.)._");
-
-    return (EXIT_SUCCESS);
+	if (*str == '\0' && *pattern == '\0')
+		return (1);
+	if ((*str == *pattern || *pattern == '.') && *(pattern + 1) != '*')
+		return (regex_match(str + 1, pattern + 1));
+	if (*(pattern + 1) == '*')
+	{
+		if (*str != '\0' && (*str == *pattern || *pattern == '.'))
+			tmp = regex_match(str + 1, pattern);
+		return (regex_match(str, pattern + 2) || tmp);
+	}
+	return (0);
 }
